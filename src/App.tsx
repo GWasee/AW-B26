@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
 
 export type GuestbookEntry = {
   id: string
@@ -208,15 +208,14 @@ export default function App() {
     setRevealedPhotos((prev) => [...prev, { index: i, x: b.x, y: b.y }])
     const next = popped | (1 << i)
     setPopped(next)
-    if (next === 0b11111) {
-      setTimeout(() => setRevealed(true), 1200)
-    }
   }
 
-  const skipToExperience = () => {
+  const handleYes = () => {
     setRevealed(true)
-    setBloomDone(true)
+    // setBloomDone(true)
   }
+
+  const handleBloomDone = useCallback(() => setBloomDone(true), [])
 
   return (
     <>
@@ -226,9 +225,11 @@ export default function App() {
         hidden={revealed && bloomDone}
         balloons={balloons}
         revealedPhotos={revealedPhotos}
-        onSkip={skipToExperience}
+        onSkip={handleYes}
       />
-      {revealed && !bloomDone && <FlowerBloom onDone={() => setBloomDone(true)} />}
+      {/* {revealed && !bloomDone && <FlowerBloom onDone={() => setBloomDone(true)} />} */}
+
+      {revealed && !bloomDone && <FlowerBloom onDone={handleBloomDone} />}
       <div className={`experience ${revealed && bloomDone ? 'shown' : ''}`} ref={ref}>
         <Hero t={t} />
         <Gallery />
