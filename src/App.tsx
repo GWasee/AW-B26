@@ -59,9 +59,11 @@ const GALLERY = [
   { src: '/images/gallery/gallery-18.jpeg', caption: 'Us being hot at the other resturant' },
   { src: '/images/gallery/gallery-2.jpeg', caption: 'Mouccha Milon time at banani bridge otw to print your docs ' },
   { src: '/images/gallery/gallery-7.jpeg', caption: 'Why are we so cute' },
-  { src: '/images/gallery/gallery-13.jpeg', caption: 'eida toh bhule gesi koi monu' },
+  { src: '/images/gallery/gallery-13.jpeg', caption: 'eida toh bhule gesi koi' },
   { src: '/images/gallery/gallery-17.jpeg', caption: 'cutiepie' },
   { src: '/images/gallery/gallery-10.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-22.jpeg', caption: 'Cristiano Who?' },
+  { src: '/images/gallery/gallery-23.jpeg', caption: 'Lojju' },
 ]
 
 
@@ -254,6 +256,7 @@ function Intro({
 }) {
   const poppedCount = (popped.toString(2).match(/1/g) || []).length
   const allPopped = poppedCount === 5
+
   return (
     <div className={`intro ${hidden ? 'hidden' : ''}`}>
       <div className="balloon-field">
@@ -287,14 +290,14 @@ function Intro({
       <div className="intro-text">
         <div className="intro-eyebrow">A little surprise for Wasee's bbg</div>
         <h1>For Ashra</h1>
-        <p>Tap every balloon to unlock your birthday surprise.</p>
+        <p>Pop every balloon to unlock your birthday surprise.</p>
       </div>
       <div className="tap-hint">
         {poppedCount === 0 ? 'Tap the balloons to begin and press NEXT :P -->' : `${poppedCount} of 5 popped`}
       </div>
       {allPopped && (
         <button className="skip-btn" onClick={onSkip} aria-label="Continue to birthday page">
-          Next →
+          YESSS →
         </button>
       )}
     </div>
@@ -343,14 +346,15 @@ function Hero({ t }: { t: ReturnType<typeof useCountdown> }) {
     <header className="hero">
       <div className="hero-eyebrow">Happy Birthday</div>
       <h1>Ashra</h1>
-      <p className="hero-sub">Today is all about you. Here's a little corner of the us built with love, just to celebrate you.</p>
+      <p className="hero-sub">Some gifts come wrapped. This one is written in code. Today is all about you. This little corner of the internet exists for one reason—to celebrate the amazing person you are.
+        Built with love, made just for you. ❤️</p>
       <div className={`countdown ${t.done ? 'celebrating' : ''}`}>
         <Unit n={t.days} label="Days" />
         <Unit n={t.hours} label="Hours" />
         <Unit n={t.minutes} label="Minutes" />
         <Unit n={t.seconds} label="Seconds" />
       </div>
-      {t.done && <p className="hero-sub" style={{ marginTop: 8 }}>It's time. Happy birthday, Ashra!</p>}
+      {t.done && <p className="hero-sub" style={{ marginTop: 8 }}>It's time. Happy birthday, Ashra you beauty</p>}
     </header>
   )
 }
@@ -370,7 +374,7 @@ function Gallery() {
       <div className="container">
         <div className="section-head">
           <h2>Moments</h2>
-          <p>A few frames that feel like a birthday. Hover to see them come alive.</p>
+          <p>A few frames that might make you feel 10 e 10. Hover to see them come alive.</p>
         </div>
         <div className="gallery">
           {GALLERY.map((g, i) => (
@@ -495,6 +499,16 @@ function Guestbook() {
           </div>
         )}
       </div>
+      <img
+        src="/images/gallery/gallery-21.gif"
+        alt="Signature"
+        style={{
+          width: "10%",
+          height: "auto",
+          display: "block",
+          margin: "50px auto",
+        }}
+      />
     </section>
   )
 }

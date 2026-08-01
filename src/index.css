@@ -23,7 +23,9 @@
   padding: 0;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   min-height: 100%;
 }
 
@@ -37,7 +39,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Fraunces', Georgia, serif;
   font-weight: 700;
   line-height: 1.1;
@@ -52,7 +56,8 @@ button {
   color: inherit;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
 }
 
@@ -128,26 +133,34 @@ input, textarea {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .skip-btn {
   position: absolute;
-  bottom: 36px;
-  right: 36px;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+
   z-index: 10;
   padding: 10px 22px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 100px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
   backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .skip-btn:hover {
@@ -159,6 +172,37 @@ input, textarea {
 
 .skip-btn:active {
   transform: translateY(0);
+}
+
+.choice-buttons {
+  position: fixed;
+  inset: 0;
+}
+
+
+.no-btn {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+
+  z-index: 10;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.no-btn.move {
+  left: 47%;
+  top: 58%;
 }
 
 /* floating balloons */
@@ -201,9 +245,20 @@ input, textarea {
 }
 
 @keyframes popOut {
-  0% { transform: scale(1); opacity: 1; }
-  40% { transform: scale(1.35); opacity: 0.9; }
-  100% { transform: scale(0.2); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  40% {
+    transform: scale(1.35);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
 }
 
 /* revealed photo from popped balloon */
@@ -228,8 +283,15 @@ input, textarea {
 }
 
 @keyframes photoIn {
-  0% { transform: scale(0.3) rotate(-8deg); opacity: 0; }
-  100% { transform: scale(1) rotate(-3deg); opacity: 1; }
+  0% {
+    transform: scale(0.3) rotate(-8deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) rotate(-3deg);
+    opacity: 1;
+  }
 }
 
 /* flower bloom transition */
@@ -251,10 +313,24 @@ input, textarea {
 }
 
 @keyframes bloomFlower {
-  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-  15% { opacity: 1; }
-  60% { transform: scale(1.4) rotate(10deg); opacity: 1; }
-  100% { transform: scale(8) rotate(20deg); opacity: 0; }
+  0% {
+    transform: scale(0) rotate(-30deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(1.4) rotate(10deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(8) rotate(20deg);
+    opacity: 0;
+  }
 }
 
 /* ---------- Main experience ---------- */
@@ -387,9 +463,17 @@ input, textarea {
   transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.gallery-item:nth-child(3n+1) { aspect-ratio: 4 / 5; }
-.gallery-item:nth-child(3n+2) { aspect-ratio: 1 / 1; }
-.gallery-item:nth-child(3n+3) { aspect-ratio: 5 / 4; }
+.gallery-item:nth-child(3n+1) {
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-item:nth-child(3n+2) {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-item:nth-child(3n+3) {
+  aspect-ratio: 5 / 4;
+}
 
 .gallery-item img {
   width: 100%;
@@ -551,8 +635,15 @@ input, textarea {
 }
 
 @keyframes wishIn {
-  from { opacity: 0; transform: translateY(12px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .empty-state {
@@ -589,6 +680,11 @@ input, textarea {
 }
 
 @media (max-width: 600px) {
-  .hero { padding: 60px 20px 40px; }
-  .section { padding: 40px 0; }
+  .hero {
+    padding: 60px 20px 40px;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
 }
