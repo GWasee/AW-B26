@@ -14,11 +14,11 @@ const BIRTHDAY = new Date('2026-08-01T18:00:00')
 
 // Photos revealed when each balloon is popped (photos of "us").
 const BALLOON_PHOTOS = [
-  'https://images.pexels.com/photos/8628344/pexels-photo-8628344.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  'https://images.pexels.com/photos/32439850/pexels-photo-32439850.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  'https://images.pexels.com/photos/30151352/pexels-photo-30151352.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  'https://images.pexels.com/photos/7741629/pexels-photo-7741629.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  'https://images.pexels.com/photos/30740900/pexels-photo-30740900.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  '/images/gallery/gallery-4.jpeg',
+  '/images/gallery/gallery-5.jpeg',
+  '/images/gallery/gallery-6.jpeg',
+  '/images/gallery/gallery-11.jpeg',
+  '/images/gallery/gallery-21.gif',
 ]
 
 const BALLOON_COLORS = [
@@ -41,12 +41,27 @@ const FLOWER_IMAGES = [
 ]
 
 const GALLERY = [
-  { src: 'images/gallery/gallery-1.jpg', caption: 'Make a wish' },
-  { src: 'images/gallery/gallery-2.jpg', caption: 'With the people you love' },
-  { src: 'images/gallery/gallery-3.jpg', caption: 'Light up the room' },
-  { src: 'images/gallery/gallery-4.jpg', caption: 'Confetti season' },
-  { src: 'images/gallery/gallery-5.jpg', caption: 'Another trip around the sun' },
-  { src: 'images/gallery/gallery-6.jpg', caption: 'Cheers to you' },
+  { src: '/images/gallery/gallery-8.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-11.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-19.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-12.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-15.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-16.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-14.jpeg', caption: 'Wearing her favorite Tshirt' },
+  { src: '/images/gallery/gallery-5.jpeg', caption: 'Buying Cake for Waqar but found the real Cake sitting sexy' },
+  { src: '/images/gallery/gallery-9.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-4.jpeg', caption: 'Krishibari Trip Best Couple Winner' },
+  { src: '/images/gallery/gallery-20.jpeg', caption: '' },
+  { src: '/images/gallery/gallery-1.jpeg', caption: 'WOK ON date for spicyy dumplings' },
+
+  { src: '/images/gallery/gallery-3.jpeg', caption: 'Cha Time or Cuddle time?' },
+  { src: '/images/gallery/gallery-6.jpeg', caption: '31st night at Neela Market, Hash er mangsho by the lake (we went to another resturant that night)' },
+  { src: '/images/gallery/gallery-18.jpeg', caption: 'Us being hot at the other resturant' },
+  { src: '/images/gallery/gallery-2.jpeg', caption: 'Mouccha Milon time at banani bridge otw to print your docs ' },
+  { src: '/images/gallery/gallery-7.jpeg', caption: 'Why are we so cute' },
+  { src: '/images/gallery/gallery-13.jpeg', caption: 'eida toh bhule gesi koi monu' },
+  { src: '/images/gallery/gallery-17.jpeg', caption: 'cutiepie' },
+  { src: '/images/gallery/gallery-10.jpeg', caption: '' },
 ]
 
 
@@ -328,7 +343,7 @@ function Hero({ t }: { t: ReturnType<typeof useCountdown> }) {
     <header className="hero">
       <div className="hero-eyebrow">Happy Birthday</div>
       <h1>Ashra</h1>
-      <p className="hero-sub">Today is all about you. Here's a little corner of the internet built with love, just to celebrate you.</p>
+      <p className="hero-sub">Today is all about you. Here's a little corner of the us built with love, just to celebrate you.</p>
       <div className={`countdown ${t.done ? 'celebrating' : ''}`}>
         <Unit n={t.days} label="Days" />
         <Unit n={t.hours} label="Hours" />
