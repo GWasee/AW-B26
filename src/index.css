@@ -402,8 +402,18 @@ textarea {
 .countdown {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: clamp(12px, 4vw, 40px);
   margin: 48px 0 20px;
+}
+
+.countdown-sign {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(40px, 9vw, 72px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-dim);
+  margin-right: -8px;
 }
 
 .count-unit {

@@ -8,7 +8,7 @@ export type GuestbookEntry = {
 }
 
 // Ashra's birthday moment — edit this date to point at the real celebration.
-const BIRTHDAY = new Date('2026-08-01T18:00:00')
+const BIRTHDAY = new Date('2026-08-01T20:00:00')
 
 
 
@@ -79,13 +79,14 @@ type BalloonState = {
 function useCountdown(target: Date) {
   const calc = () => {
     const diff = target.getTime() - Date.now()
-    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, done: true }
+    const past = diff <= 0
+    const abs = Math.abs(diff)
     return {
-      days: Math.floor(diff / 86400000),
-      hours: Math.floor((diff % 86400000) / 3600000),
-      minutes: Math.floor((diff % 3600000) / 60000),
-      seconds: Math.floor((diff % 60000) / 1000),
-      done: false,
+      days: Math.floor(abs / 86400000),
+      hours: Math.floor((abs % 86400000) / 3600000),
+      minutes: Math.floor((abs % 3600000) / 60000),
+      seconds: Math.floor((abs % 60000) / 1000),
+      done: past,
     }
   }
   const [t, setT] = useState(calc)
@@ -384,6 +385,7 @@ function Hero({ t }: { t: ReturnType<typeof useCountdown> }) {
       <p className="hero-sub">Some gifts come wrapped. This one is written in code. Today is all about you. This little corner of the internet exists for one reason—to celebrate the amazing person you are.
         Built with love, made just for you. ❤️</p>
       <div className={`countdown ${t.done ? 'celebrating' : ''}`}>
+        {t.done && <div className="countdown-sign">-</div>}
         <Unit n={t.days} label="Days" />
         <Unit n={t.hours} label="Hours" />
         <Unit n={t.minutes} label="Minutes" />
