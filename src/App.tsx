@@ -8,7 +8,9 @@ export type GuestbookEntry = {
 }
 
 // Ashra's birthday moment — edit this date to point at the real celebration.
-const BIRTHDAY = new Date('2026-08-15T18:00:00')
+const BIRTHDAY = new Date('2026-08-01T18:00:00')
+
+
 
 // Photos revealed when each balloon is popped (photos of "us").
 const BALLOON_PHOTOS = [
@@ -39,13 +41,14 @@ const FLOWER_IMAGES = [
 ]
 
 const GALLERY = [
-  { src: 'https://images.pexels.com/photos/36211802/pexels-photo-36211802.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', caption: 'Make a wish' },
-  { src: 'https://images.pexels.com/photos/30682919/pexels-photo-30682919.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', caption: 'With the people you love' },
-  { src: 'https://images.pexels.com/photos/15211704/pexels-photo-15211704.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', caption: 'Light up the room' },
-  { src: 'https://images.pexels.com/photos/5970895/pexels-photo-5970895.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', caption: 'Confetti season' },
-  { src: 'https://images.pexels.com/photos/20346916/pexels-photo-20346916.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', caption: 'Another trip around the sun' },
-  { src: 'https://images.pexels.com/photos/33038785/pexels-photo-33038785.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', caption: 'Cheers to you' },
+  { src: 'images/gallery/gallery-1.jpg', caption: 'Make a wish' },
+  { src: 'images/gallery/gallery-2.jpg', caption: 'With the people you love' },
+  { src: 'images/gallery/gallery-3.jpg', caption: 'Light up the room' },
+  { src: 'images/gallery/gallery-4.jpg', caption: 'Confetti season' },
+  { src: 'images/gallery/gallery-5.jpg', caption: 'Another trip around the sun' },
+  { src: 'images/gallery/gallery-6.jpg', caption: 'Cheers to you' },
 ]
+
 
 type BalloonState = {
   x: number
@@ -202,7 +205,7 @@ export default function App() {
       <Intro
         popped={popped}
         onPop={popBalloon}
-        hidden={revealed}
+        hidden={revealed && bloomDone}
         balloons={balloons}
         revealedPhotos={revealedPhotos}
         onSkip={skipToExperience}
@@ -211,7 +214,7 @@ export default function App() {
       <div className={`experience ${revealed && bloomDone ? 'shown' : ''}`} ref={ref}>
         <Hero t={t} />
         <Gallery />
-        <Video />
+        {/* <Video /> */}
         <Guestbook />
         <Footer />
       </div>
@@ -235,6 +238,7 @@ function Intro({
   onSkip: () => void
 }) {
   const poppedCount = (popped.toString(2).match(/1/g) || []).length
+  const allPopped = poppedCount === 5
   return (
     <div className={`intro ${hidden ? 'hidden' : ''}`}>
       <div className="balloon-field">
@@ -266,16 +270,18 @@ function Intro({
         ))}
       </div>
       <div className="intro-text">
-        <div className="intro-eyebrow">A little surprise</div>
+        <div className="intro-eyebrow">A little surprise for Wasee's bbg</div>
         <h1>For Ashra</h1>
         <p>Tap every balloon to unlock your birthday surprise.</p>
       </div>
       <div className="tap-hint">
-        {poppedCount === 0 ? 'Tap the balloons to begin' : `${poppedCount} of 5 popped`}
+        {poppedCount === 0 ? 'Tap the balloons to begin and press NEXT :P -->' : `${poppedCount} of 5 popped`}
       </div>
-      <button className="skip-btn" onClick={onSkip} aria-label="Skip to birthday page">
-        Next →
-      </button>
+      {allPopped && (
+        <button className="skip-btn" onClick={onSkip} aria-label="Continue to birthday page">
+          Next →
+        </button>
+      )}
     </div>
   )
 }
@@ -364,24 +370,24 @@ function Gallery() {
   )
 }
 
-function Video() {
-  return (
-    <section className="section reveal">
-      <div className="container">
-        <div className="section-head">
-          <h2>A Message For You</h2>
-          <p>Press play when you're ready.</p>
-        </div>
-        <div className="video-wrap">
-          <video controls playsInline poster="https://images.pexels.com/photos/15211704/pexels-photo-15211704.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-            <source src="https://cdn.coverr.co/videos/coverr-a-birthday-cake-with-candles-2633/1080p.mp4" type="video/mp4" />
-            Your browser does not support video playback.
-          </video>
-        </div>
-      </div>
-    </section>
-  )
-}
+// function Video() {
+//   return (
+//     <section className="section reveal">
+//       <div className="container">
+//         <div className="section-head">
+//           <h2>A Message For You</h2>
+//           <p>Press play when you're ready.</p>
+//         </div>
+//         <div className="video-wrap">
+//           <video controls playsInline poster="https://images.pexels.com/photos/15211704/pexels-photo-15211704.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+//             <source src="https://cdn.coverr.co/videos/coverr-a-birthday-cake-with-candles-2633/1080p.mp4" type="video/mp4" />
+//             Your browser does not support video playback.
+//           </video>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
 
 function Guestbook() {
   const [name, setName] = useState('')
@@ -409,7 +415,7 @@ function Guestbook() {
     if (!name.trim() || !message.trim()) return
     setSubmitting(true)
     setError('')
-    
+
     try {
       const newEntry: GuestbookEntry = {
         id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9),
@@ -417,7 +423,7 @@ function Guestbook() {
         message: message.trim(),
         created_at: new Date().toISOString()
       }
-      
+
       const updatedEntries = [newEntry, ...entries]
       localStorage.setItem('birthday_guestbook', JSON.stringify(updatedEntries))
       setEntries(updatedEntries)
