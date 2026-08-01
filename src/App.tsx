@@ -303,10 +303,12 @@ function Intro({
         <p>Pop every balloon to unlock your birthday surprise.</p>
       </div>
       <div className="tap-hint">
-        {poppedCount === 0 ? 'Tap the balloons to begin and press NEXT :P -->' : `${poppedCount} of 5 popped`}
+        {poppedCount === 0 ? 'Tap the balloons to begin' : `${poppedCount} of 5 popped`}
       </div>
       {allPopped && (
         <>
+
+          <div className="choice-prompt">DO YOU LOVE WASEE?</div>
           <button
             className="skip-btn"
             style={{
@@ -316,7 +318,7 @@ function Intro({
             }}
             onClick={onSkip}
           >
-            YES ❤️
+            YESSS ❤️
           </button>
 
           <button
@@ -329,7 +331,7 @@ function Intro({
             onMouseEnter={moveNoButton}
             onClick={moveNoButton}
           >
-            NO 😤
+            NO BITCH 😤
           </button>
         </>
       )}
@@ -549,7 +551,8 @@ function Guestbook() {
 function Footer() {
   return (
     <footer className="footer">
-      Made with <span className="heart">love</span> for Ashra. Have the happiest of birthdays.
+      Made with <span className="heart">love</span> for Ashra by Wasee for her 28th birthday August 2nd 2026.
+      <br /> Have the happiest of birthdays and may Allah bless you with endless happiness, success, and barakah in everything ahead.
     </footer>
   )
 }
