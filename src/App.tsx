@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-import { supabase, type GuestbookEntry } from './lib/supabase'
+
+export type GuestbookEntry = {
+  id: string
+  name: string
+  message: string
+  created_at: string
+}
 
 // Ashra's birthday moment — edit this date to point at the real celebration.
 const BIRTHDAY = new Date('2026-08-15T18:00:00')
@@ -186,14 +192,20 @@ export default function App() {
     }
   }
 
+  const skipToExperience = () => {
+    setRevealed(true)
+    setBloomDone(true)
+  }
+
   return (
     <>
       <Intro
         popped={popped}
         onPop={popBalloon}
-        hidden={revealed && bloomDone}
+        hidden={revealed}
         balloons={balloons}
         revealedPhotos={revealedPhotos}
+        onSkip={skipToExperience}
       />
       {revealed && !bloomDone && <FlowerBloom onDone={() => setBloomDone(true)} />}
       <div className={`experience ${revealed && bloomDone ? 'shown' : ''}`} ref={ref}>
@@ -213,12 +225,14 @@ function Intro({
   hidden,
   balloons,
   revealedPhotos,
+  onSkip,
 }: {
   popped: number
   onPop: (i: number) => void
   hidden: boolean
   balloons: BalloonState[]
   revealedPhotos: { index: number; x: number; y: number }[]
+  onSkip: () => void
 }) {
   const poppedCount = (popped.toString(2).match(/1/g) || []).length
   return (
@@ -259,6 +273,9 @@ function Intro({
       <div className="tap-hint">
         {poppedCount === 0 ? 'Tap the balloons to begin' : `${poppedCount} of 5 popped`}
       </div>
+      <button className="skip-btn" onClick={onSkip} aria-label="Skip to birthday page">
+        Next →
+      </button>
     </div>
   )
 }
@@ -375,14 +392,16 @@ function Guestbook() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    supabase
-      .from('birthday_guestbook')
-      .select('id, name, message, created_at')
-      .order('created_at', { ascending: false })
-      .then(({ data, error }) => {
-        if (!error && data) setEntries(data as GuestbookEntry[])
-        setLoading(false)
-      })
+    try {
+      const stored = localStorage.getItem('birthday_guestbook')
+      if (stored) {
+        setEntries(JSON.parse(stored))
+      }
+    } catch (e) {
+      console.error('Error loading guestbook wishes:', e)
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   const submit = async (e: React.FormEvent) => {
@@ -390,20 +409,24 @@ function Guestbook() {
     if (!name.trim() || !message.trim()) return
     setSubmitting(true)
     setError('')
-    const { data, error } = await supabase
-      .from('birthday_guestbook')
-      .insert({ name: name.trim(), message: message.trim() })
-      .select('id, name, message, created_at')
-      .single()
-    setSubmitting(false)
-    if (error) {
-      setError('Could not add your wish. Please try again.')
-      return
-    }
-    if (data) {
-      setEntries((prev) => [data as GuestbookEntry, ...prev])
+    
+    try {
+      const newEntry: GuestbookEntry = {
+        id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9),
+        name: name.trim(),
+        message: message.trim(),
+        created_at: new Date().toISOString()
+      }
+      
+      const updatedEntries = [newEntry, ...entries]
+      localStorage.setItem('birthday_guestbook', JSON.stringify(updatedEntries))
+      setEntries(updatedEntries)
       setName('')
       setMessage('')
+    } catch (e) {
+      setError('Could not save your wish locally.')
+    } finally {
+      setSubmitting(false)
     }
   }
 
