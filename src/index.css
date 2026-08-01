@@ -146,8 +146,8 @@ textarea {
 
 .skip-btn {
   position: absolute;
-  top: 50%;
-  left: 45%;
+  /* top: 50%;
+  left: 45%; */
   transform: translate(-50%, -50%);
 
   z-index: 10;
@@ -182,8 +182,8 @@ textarea {
 
 .no-btn {
   position: absolute;
-  top: 50%;
-  left: 55%;
+  /* top: 70%;
+  left: 55%; */
   transform: translate(-50%, -50%);
 
   z-index: 10;

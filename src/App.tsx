@@ -257,6 +257,16 @@ function Intro({
   const poppedCount = (popped.toString(2).match(/1/g) || []).length
   const allPopped = poppedCount === 5
 
+
+  const [noPos, setNoPos] = useState({ x: 55, y: 70 })
+
+  const moveNoButton = () => {
+    setNoPos({
+      x: 15 + Math.random() * 70,
+      y: 20 + Math.random() * 60,
+    })
+  }
+
   return (
     <div className={`intro ${hidden ? 'hidden' : ''}`}>
       <div className="balloon-field">
@@ -296,9 +306,32 @@ function Intro({
         {poppedCount === 0 ? 'Tap the balloons to begin and press NEXT :P -->' : `${poppedCount} of 5 popped`}
       </div>
       {allPopped && (
-        <button className="skip-btn" onClick={onSkip} aria-label="Continue to birthday page">
-          YESSS →
-        </button>
+        <>
+          <button
+            className="skip-btn"
+            style={{
+              top: "70%",
+              left: "40%",
+              transform: "translate(-50%, -50%)",
+            }}
+            onClick={onSkip}
+          >
+            YES ❤️
+          </button>
+
+          <button
+            className="skip-btn"
+            style={{
+              top: `${noPos.y}%`,
+              left: `${noPos.x}%`,
+              transform: "translate(-50%, -50%)",
+            }}
+            onMouseEnter={moveNoButton}
+            onClick={moveNoButton}
+          >
+            NO 😤
+          </button>
+        </>
       )}
     </div>
   )
