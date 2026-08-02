@@ -554,7 +554,7 @@ function Guestbook() {
 function Footer() {
   return (
     <footer className="footer">
-      Made with <span className="heart">love</span> for Ashra by Wasee for her 28th birthday August 2nd 2026.
+      Made with <span className="heart">love</span> for Ashra by Wasee for her 27th birthday August 2nd 2026.
       <br /> Have the happiest of birthdays and may Allah bless you with endless happiness, success, and barakah in everything ahead.
     </footer>
   )
